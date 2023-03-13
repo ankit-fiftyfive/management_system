@@ -6,38 +6,48 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
+@RequestMapping("/employees")
 public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
-    @GetMapping("/employees")
+    @GetMapping
     public List<Employee> getAll(){
         return this.employeeService.getAll();
     }
 
-    @GetMapping("/employees/{id}")
-    public Employee getById(@PathVariable long id){
+    @GetMapping("/page-sort")
+    public List<Employee> getAllByPageSort(@RequestParam(value = "pageNumber", defaultValue = "1", required = false) int pageNumber,
+                                              @RequestParam(value = "pageSize", defaultValue = "2", required = false) int pageSize,
+                                              @RequestParam(value = "sortBy", defaultValue = "id", required = false) String sortBy,
+                                              @RequestParam(value = "sortDirection", defaultValue = "desc", required = false) String sortDirection){
+        return this.employeeService.getAllByPageSort(pageNumber, pageSize, sortBy, sortDirection);
+    }
+
+    @GetMapping("/{id}")
+    public Optional<Employee> getById(@PathVariable long id){
         return this.employeeService.getById(id);
     }
 
-    @PostMapping("/employees")
+    @PostMapping
     public Employee add(@RequestBody Employee employee){
         return this.employeeService.add(employee);
     }
 
-    @PutMapping("/employees")
+    @PutMapping
     public String update(@RequestBody Employee employee){
         return this.employeeService.update(employee);
     }
 
-    @DeleteMapping("/employees/{id}")
+    @DeleteMapping("/{id}")
     public String deleteById(@PathVariable long id){
         return this.employeeService.deleteById(id);
     }
 
-    @DeleteMapping("/employees")
+    @DeleteMapping
     public String deleteAll(){
         return this.employeeService.deleteAll();
     }

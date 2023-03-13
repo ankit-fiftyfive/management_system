@@ -1,13 +1,20 @@
 package com.example.management_system.entities;
 
-public class Employee {
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
+@Entity
+public class Employee {
+    @Id
     private long id;
     private String name;
     private int age;
     private String gender;
     private String position;
     private long salary;
+
+    public Employee() {
+    }
 
     public Employee(long id, String name, int age, String gender, String position, long salary) {
         this.id = id;
