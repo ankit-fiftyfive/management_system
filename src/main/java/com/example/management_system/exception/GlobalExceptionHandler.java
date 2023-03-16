@@ -35,6 +35,6 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiResponseDto> handleResourceAlreadyExistException(ResourceAlreadyExistException ex){
         String message = ex.getMessage();
         ApiResponseDto apiResponseDto = new ApiResponseDto(message, false);
-        return new ResponseEntity<>(apiResponseDto, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(apiResponseDto, HttpStatus.CONFLICT);
     }
 }
