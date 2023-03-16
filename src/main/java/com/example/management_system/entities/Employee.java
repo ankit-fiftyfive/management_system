@@ -27,6 +27,7 @@ public class Employee {
     private String streetAddress;
     @NotNull
     private long contactNumber;
+
     @Email(message = "Enter valid mail address")
     @NotNull
     private String email;

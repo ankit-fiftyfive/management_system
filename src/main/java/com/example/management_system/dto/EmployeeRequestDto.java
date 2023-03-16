@@ -1,6 +1,7 @@
 package com.example.management_system.dto;
 
 
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -13,7 +14,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class EmployeeDto {
+public class EmployeeRequestDto {
     @NotNull
     private long id;
     @NotEmpty(message = "name should not be null")
@@ -30,8 +31,8 @@ public class EmployeeDto {
     private String streetAddress;
     @NotNull
     private long contactNumber;
+    @Column(unique = true)
     @Email(message = "Enter valid mail address")
-    @NotNull
     private String email;
     @NotEmpty
     private String location;

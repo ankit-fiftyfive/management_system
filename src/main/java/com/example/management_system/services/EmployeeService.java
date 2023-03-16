@@ -1,29 +1,28 @@
 package com.example.management_system.services;
 
-import com.example.management_system.dto.EmployeeDto;
-import com.example.management_system.dto.EmployeeSubDto;
+import com.example.management_system.dto.EmployeeRequestDto;
+import com.example.management_system.dto.EmployeeResponseDto;
 import com.example.management_system.entities.Employee;
-import com.example.management_system.exception.ResourceAlreadyExistException;
 
 import java.util.List;
 
 public interface EmployeeService {
 
-    public List<EmployeeSubDto> getAll();
+    public List<EmployeeResponseDto> getAll();
 
-    public List<EmployeeSubDto> getAllByPageSort(int pageNumber, int pageSize, String sortBy, String sortDirection);
+    public List<EmployeeResponseDto> getAllByPageSort(int pageNumber, int pageSize, String sortBy, String sortDirection);
 
-    public EmployeeSubDto getById(long id);
+    public EmployeeResponseDto getById(long id);
 
-    public List<EmployeeSubDto> getByNameAndAge(String name, int age);
+    public List<EmployeeResponseDto> getByNameAndAge(String name, int age);
 
-    public List<EmployeeSubDto> getBySalary(long salary);
+    public List<EmployeeResponseDto> getBySalary(long salary);
 
-    public List<EmployeeSubDto> getByPosition(String position);
+    public List<EmployeeResponseDto> getByPosition(String position);
 
-    public List<EmployeeSubDto> getByPositionAndDepartment(String position, String department);
+    public List<EmployeeResponseDto> getByPositionAndDepartment(String position, String department);
 
-    public Employee add(EmployeeDto employeeDto) throws ResourceAlreadyExistException;
+    public Employee add(EmployeeRequestDto employeeRequestDto);
 
     public String update(Employee employee);
 

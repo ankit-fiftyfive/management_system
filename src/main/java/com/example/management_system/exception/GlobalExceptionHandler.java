@@ -1,6 +1,6 @@
 package com.example.management_system.exception;
 
-import com.example.management_system.payloads.ApiResponse;
+import com.example.management_system.dto.ApiResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -16,7 +16,7 @@ public class GlobalExceptionHandler {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Map<String, String>> handleInvalidArgument(MethodArgumentNotValidException ex){
+    public ResponseEntity<Map<String, String>> handleInvalidArgumentException(MethodArgumentNotValidException ex){
         Map<String, String> errorMap = new HashMap<>();
         ex.getBindingResult().getFieldErrors().forEach(error -> {
             errorMap.put(error.getField(), error.getDefaultMessage());
@@ -25,16 +25,16 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<ApiResponse> resourceNotFoundExceptionHandler(ResourceNotFoundException ex){
+    public ResponseEntity<ApiResponseDto> handleResourceNotFoundException(ResourceNotFoundException ex){
         String message = ex.getMessage();
-        ApiResponse apiResponse = new ApiResponse(message, false);
-        return new ResponseEntity<>(apiResponse, HttpStatus.NOT_FOUND);
+        ApiResponseDto apiResponseDto = new ApiResponseDto(message, false);
+        return new ResponseEntity<>(apiResponseDto, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(ResourceAlreadyExistException.class)
-    public ResponseEntity<ApiResponse> ResourceAlreadyExistExceptionHandler(ResourceAlreadyExistException ex){
+    public ResponseEntity<ApiResponseDto> handleResourceAlreadyExistException(ResourceAlreadyExistException ex){
         String message = ex.getMessage();
-        ApiResponse apiResponse = new ApiResponse(message, false);
-        return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
+        ApiResponseDto apiResponseDto = new ApiResponseDto(message, false);
+        return new ResponseEntity<>(apiResponseDto, HttpStatus.BAD_REQUEST);
     }
 }

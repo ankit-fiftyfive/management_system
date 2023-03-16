@@ -1,9 +1,9 @@
 package com.example.management_system.services;
 
-import com.example.management_system.converter.EmployeeConverter;
+import com.example.management_system.util.EmployeeConverter;
 import com.example.management_system.dao.EmployeeDao;
-import com.example.management_system.dto.EmployeeDto;
-import com.example.management_system.dto.EmployeeSubDto;
+import com.example.management_system.dto.EmployeeRequestDto;
+import com.example.management_system.dto.EmployeeResponseDto;
 import com.example.management_system.entities.Employee;
 import com.example.management_system.exception.ResourceAlreadyExistException;
 import com.example.management_system.exception.ResourceNotFoundException;
@@ -17,22 +17,22 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class EmployeeServiceImpl implements EmployeeService {
+public class EmployeeServiceImpl extends EmployeeConverter implements EmployeeService {
 
     @Autowired
     private EmployeeDao employeeDao;
     private EmployeeConverter employeeConverter = new EmployeeConverter();
 
     @Override
-    public List<EmployeeSubDto> getAll() {
+    public List<EmployeeResponseDto> getAll() {
         if(employeeDao.findAll().isEmpty()){
             throw new ResourceNotFoundException("Employees");
         }
-        return employeeConverter.entityToDto(employeeDao.findAll());
+        return entityToDto(employeeDao.findAll());
     }
 
     @Override
-    public List<EmployeeSubDto> getAllByPageSort(int pageNumber, int pageSize, String sortBy, String sortDirection){
+    public List<EmployeeResponseDto> getAllByPageSort(int pageNumber, int pageSize, String sortBy, String sortDirection){
 
         Sort sort = null;
         if(sortDirection.equalsIgnoreCase("asc")){
@@ -51,50 +51,51 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public EmployeeSubDto getById(long id){
+    public EmployeeResponseDto getById(long id){
         if(employeeDao.findById(id) == null){
             throw new ResourceNotFoundException("Employee", "id", id);
         }
-        return employeeConverter.entityToDto(employeeDao.findById(id));
+        return entityToDto(employeeDao.findById(id));
     }
     
     @Override
-    public List<EmployeeSubDto> getByNameAndAge(String name, int age){
+    public List<EmployeeResponseDto> getByNameAndAge(String name, int age){
         if(employeeDao.findByNameAndAge(name, age).isEmpty()){
             throw new ResourceNotFoundException("Employees");
         }
-        return employeeConverter.entityToDto(employeeDao.findByNameAndAge(name, age));
+        return entityToDto(employeeDao.findByNameAndAge(name, age));
     }
 
-    public List<EmployeeSubDto> getBySalary(long salary){
+    @Override
+    public List<EmployeeResponseDto> getBySalary(long salary){
         if(employeeDao.findBySalary(salary).isEmpty()){
             throw new ResourceNotFoundException("Employees");
         }
-        return employeeConverter.entityToDto(employeeDao.findBySalary(salary));
+        return entityToDto(employeeDao.findBySalary(salary));
     }
 
     @Override
-    public List<EmployeeSubDto> getByPosition(String position){
+    public List<EmployeeResponseDto> getByPosition(String position){
         if(employeeDao.findByPosition(position).isEmpty()){
             throw new ResourceNotFoundException("Employees");
         }
-        return employeeConverter.entityToDto(employeeDao.findByPosition(position));
+        return entityToDto(employeeDao.findByPosition(position));
     }
 
     @Override
-    public List<EmployeeSubDto> getByPositionAndDepartment(String position, String department){
+    public List<EmployeeResponseDto> getByPositionAndDepartment(String position, String department){
         if(employeeDao.findByPositionAndDepartment(position, department).isEmpty()){
             throw new ResourceNotFoundException("Employees");
         }
-        return employeeConverter.entityToDto(employeeDao.findByPositionAndDepartment(position, department));
+        return entityToDto(employeeDao.findByPositionAndDepartment(position, department));
     }
     @Override
-    public Employee add(EmployeeDto employeeDto) throws ResourceAlreadyExistException {
+    public Employee add(EmployeeRequestDto employeeRequestDto){
 
-        if(employeeDao.findByEmail(employeeDto.getEmail()) != null){
-            throw new ResourceAlreadyExistException("Employee", "email", employeeDto.getEmail());
+        if(employeeDao.findByEmail(employeeRequestDto.getEmail()) != null){
+            throw new ResourceAlreadyExistException("Employee", "email", employeeRequestDto.getEmail());
         }
-        Employee employee = employeeConverter.dtoToEntity(employeeDto);
+        Employee employee = dtoToEntity(employeeRequestDto);
         employeeDao.save(employee);
         return employee;
     }
