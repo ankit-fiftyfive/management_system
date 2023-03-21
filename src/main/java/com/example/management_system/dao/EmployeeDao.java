@@ -20,9 +20,10 @@ public interface EmployeeDao extends JpaRepository<Employee,Long> {
 
     public Employee findByEmail(String email);
 
-    @Query(value = "Select * From employee_management.employee e Where e.position =?1", nativeQuery = true)
+    @Query(value = "Select * From employee e Where e.position =?1", nativeQuery = true)
     public List<Employee> findByPosition(@Param("position") String position);
 
-    @Query(value = "Select * From employee_management.employee e Where e.position =?1 and e.department =?2", nativeQuery = true)
+    @Query(value = "Select * From employee e Where e.position =?1 and e.department =?2", nativeQuery = true)
     public List<Employee> findByPositionAndDepartment(@Param("position") String position, @Param("department") String department);
+
 }

@@ -20,12 +20,12 @@ public class EmployeeConverter {
         employee.setPosition(employeeRequestDto.getPosition());
         employee.setSalary(employeeRequestDto.getSalary());
         employee.setEmail(employeeRequestDto.getEmail());
-        employee.setContactNumber(employeeRequestDto.getContactNumber());
+        employee.setContact_number(employeeRequestDto.getContact_number());
         employee.setLocation(employeeRequestDto.getLocation());
         employee.setCompany(employeeRequestDto.getCompany());
         employee.setPincode(employeeRequestDto.getPincode());
         employee.setDepartment(employeeRequestDto.getDepartment());
-        employee.setStreetAddress(employeeRequestDto.getStreetAddress());
+        employee.setStreet_address(employeeRequestDto.getStreet_address());
 
         return employee;
 
@@ -42,7 +42,7 @@ public class EmployeeConverter {
         employeeResponseDto.setName(employee.getName());
         employeeResponseDto.setGender(employee.getGender());
         employeeResponseDto.setEmail(employee.getEmail());
-        employeeResponseDto.setContactNumber(employee.getContactNumber());
+        employeeResponseDto.setContactNumber(employee.getContact_number());
         employeeResponseDto.setPosition(employee.getPosition());
         employeeResponseDto.setLocation(employee.getLocation());
         employeeResponseDto.setCompany(employee.getCompany());

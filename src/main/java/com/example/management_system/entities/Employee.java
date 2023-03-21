@@ -1,5 +1,6 @@
 package com.example.management_system.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -24,11 +25,12 @@ public class Employee {
     @NotNull
     private long salary;
     @NotEmpty
-    private String streetAddress;
+    private String street_address;
     @NotNull
-    private long contactNumber;
+    private long contact_number;
 
     @Email(message = "Enter valid mail address")
+    @Column(unique = true)
     @NotNull
     private String email;
     @NotEmpty
@@ -43,15 +45,15 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(long id, String name, int age, String gender, String position, long salary, String streetAddress, long contactNumber, String email, String location, int pincode, String company, String department) {
+    public Employee(long id, String name, int age, String gender, String position, long salary, String street_address, long contact_number, String email, String location, int pincode, String company, String department) {
         this.id = id;
         this.name = name;
         this.age = age;
         this.gender = gender;
         this.position = position;
         this.salary = salary;
-        this.streetAddress = streetAddress;
-        this.contactNumber = contactNumber;
+        this.street_address = street_address;
+        this.contact_number = contact_number;
         this.email = email;
         this.location = location;
         this.pincode = pincode;
@@ -107,20 +109,20 @@ public class Employee {
         this.salary = salary;
     }
 
-    public String getStreetAddress() {
-        return streetAddress;
+    public String getStreet_address() {
+        return street_address;
     }
 
-    public void setStreetAddress(String streetAddress) {
-        this.streetAddress = streetAddress;
+    public void setStreet_address(String street_address) {
+        this.street_address = street_address;
     }
 
-    public long getContactNumber() {
-        return contactNumber;
+    public long getContact_number() {
+        return contact_number;
     }
 
-    public void setContactNumber(long contactNumber) {
-        this.contactNumber = contactNumber;
+    public void setContact_number(long contact_number) {
+        this.contact_number = contact_number;
     }
 
     public String getEmail() {

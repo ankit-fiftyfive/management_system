@@ -15,7 +15,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class EmployeeRequestDto {
-    @NotNull
+
     private long id;
     @NotEmpty(message = "name should not be null")
     private String name;
@@ -28,9 +28,9 @@ public class EmployeeRequestDto {
     @NotNull
     private long salary;
     @NotEmpty
-    private String streetAddress;
+    private String street_address;
     @NotNull
-    private long contactNumber;
+    private long contact_number;
     @Column(unique = true)
     @Email(message = "Enter valid mail address")
     private String email;

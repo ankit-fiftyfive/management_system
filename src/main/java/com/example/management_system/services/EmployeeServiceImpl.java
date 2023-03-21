@@ -1,13 +1,13 @@
 package com.example.management_system.services;
 
-import com.example.management_system.util.EmployeeConverter;
 import com.example.management_system.dao.EmployeeDao;
 import com.example.management_system.dto.EmployeeRequestDto;
 import com.example.management_system.dto.EmployeeResponseDto;
 import com.example.management_system.entities.Employee;
 import com.example.management_system.exception.ResourceAlreadyExistException;
 import com.example.management_system.exception.ResourceNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.management_system.util.EmployeeConverter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -16,19 +16,18 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
-public class EmployeeServiceImpl extends EmployeeConverter implements EmployeeService {
+public class EmployeeServiceImpl implements EmployeeService {
 
-    @Autowired
-    private EmployeeDao employeeDao;
-    private EmployeeConverter employeeConverter = new EmployeeConverter();
+    private final EmployeeDao employeeDao;
 
     @Override
     public List<EmployeeResponseDto> getAll() {
         if(employeeDao.findAll().isEmpty()){
             throw new ResourceNotFoundException("Employees");
         }
-        return entityToDto(employeeDao.findAll());
+        return EmployeeConverter.entityToDto(employeeDao.findAll());
     }
 
     @Override
@@ -47,7 +46,7 @@ public class EmployeeServiceImpl extends EmployeeConverter implements EmployeeSe
         if(allEmployee.isEmpty()){
             throw new ResourceNotFoundException("Employees");
         }
-        return employeeConverter.entityToDto(allEmployee);
+        return EmployeeConverter.entityToDto(allEmployee);
     }
 
     @Override
@@ -55,7 +54,7 @@ public class EmployeeServiceImpl extends EmployeeConverter implements EmployeeSe
         if(employeeDao.findById(id) == null){
             throw new ResourceNotFoundException("Employee", "id", id);
         }
-        return entityToDto(employeeDao.findById(id));
+        return EmployeeConverter.entityToDto(employeeDao.findById(id));
     }
     
     @Override
@@ -63,7 +62,7 @@ public class EmployeeServiceImpl extends EmployeeConverter implements EmployeeSe
         if(employeeDao.findByNameAndAge(name, age).isEmpty()){
             throw new ResourceNotFoundException("Employees");
         }
-        return entityToDto(employeeDao.findByNameAndAge(name, age));
+        return EmployeeConverter.entityToDto(employeeDao.findByNameAndAge(name, age));
     }
 
     @Override
@@ -71,7 +70,7 @@ public class EmployeeServiceImpl extends EmployeeConverter implements EmployeeSe
         if(employeeDao.findBySalary(salary).isEmpty()){
             throw new ResourceNotFoundException("Employees");
         }
-        return entityToDto(employeeDao.findBySalary(salary));
+        return EmployeeConverter.entityToDto(employeeDao.findBySalary(salary));
     }
 
     @Override
@@ -79,7 +78,7 @@ public class EmployeeServiceImpl extends EmployeeConverter implements EmployeeSe
         if(employeeDao.findByPosition(position).isEmpty()){
             throw new ResourceNotFoundException("Employees");
         }
-        return entityToDto(employeeDao.findByPosition(position));
+        return EmployeeConverter.entityToDto(employeeDao.findByPosition(position));
     }
 
     @Override
@@ -87,7 +86,7 @@ public class EmployeeServiceImpl extends EmployeeConverter implements EmployeeSe
         if(employeeDao.findByPositionAndDepartment(position, department).isEmpty()){
             throw new ResourceNotFoundException("Employees");
         }
-        return entityToDto(employeeDao.findByPositionAndDepartment(position, department));
+        return EmployeeConverter.entityToDto(employeeDao.findByPositionAndDepartment(position, department));
     }
     @Override
     public Employee add(EmployeeRequestDto employeeRequestDto){
@@ -95,7 +94,7 @@ public class EmployeeServiceImpl extends EmployeeConverter implements EmployeeSe
         if(employeeDao.findByEmail(employeeRequestDto.getEmail()) != null){
             throw new ResourceAlreadyExistException("Employee", "email", employeeRequestDto.getEmail());
         }
-        Employee employee = dtoToEntity(employeeRequestDto);
+        Employee employee = EmployeeConverter.dtoToEntity(employeeRequestDto);
         employeeDao.save(employee);
         return employee;
     }

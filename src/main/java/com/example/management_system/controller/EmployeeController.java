@@ -7,18 +7,19 @@ import com.example.management_system.exception.ResourceAlreadyExistException;
 import com.example.management_system.exception.ResourceNotFoundException;
 import com.example.management_system.services.EmployeeService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/employees")
 public class EmployeeController {
-    @Autowired
-    private EmployeeService employeeService;
+
+    private final EmployeeService employeeService;
 
     @GetMapping
     public List<EmployeeResponseDto> getAll(){
@@ -78,7 +79,5 @@ public class EmployeeController {
     public String deleteAll(){
         return this.employeeService.deleteAll();
     }
-
-
 
 }
