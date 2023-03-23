@@ -46,7 +46,7 @@ public class EmployeeConverter {
         employeeResponseDto.setPosition(employee.getPosition());
         employeeResponseDto.setLocation(employee.getLocation());
         employeeResponseDto.setCompany(employee.getCompany());
-        employeeResponseDto.setDepartment(employeeResponseDto.getDepartment());
+        employeeResponseDto.setDepartment(employee.getDepartment());
 
         return employeeResponseDto;
 

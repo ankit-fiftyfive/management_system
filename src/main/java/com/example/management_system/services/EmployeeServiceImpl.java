@@ -24,9 +24,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public List<EmployeeResponseDto> getAll() {
-        if(employeeDao.findAll().isEmpty()){
-            throw new ResourceNotFoundException("Employees");
-        }
         return EmployeeConverter.entityToDto(employeeDao.findAll());
     }
 
@@ -101,6 +98,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public String update(Employee employee){
+        if(employeeDao.findById(employee.getId()) == null){
+            throw new ResourceNotFoundException("Employee", "id", employee.getId());
+        }
         employeeDao.save(employee);
         return "Employee Details Updated";
     }
@@ -116,6 +116,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public String deleteAll() {
+        if(employeeDao.findAll() == null){
+            throw new ResourceNotFoundException("Employee");
+        }
         employeeDao.deleteAll();
         return "All records deleted";
     }

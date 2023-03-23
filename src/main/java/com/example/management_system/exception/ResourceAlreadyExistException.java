@@ -5,4 +5,8 @@ public class ResourceAlreadyExistException extends RuntimeException{
         super(String.format("%s already exists with %s : %s", resourceName, fieldName, fieldValue));
     }
 
+    public ResourceAlreadyExistException(String resourceName){
+        super(String.format("%s with this email already exists", resourceName));
+    }
+
 }
