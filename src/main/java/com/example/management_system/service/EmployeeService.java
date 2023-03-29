@@ -1,4 +1,4 @@
-package com.example.management_system.services;
+package com.example.management_system.service;
 
 import com.example.management_system.dto.EmployeeRequestDto;
 import com.example.management_system.dto.EmployeeResponseDto;

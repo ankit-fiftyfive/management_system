@@ -5,7 +5,7 @@ import com.example.management_system.dto.EmployeeResponseDto;
 import com.example.management_system.entities.Employee;
 import com.example.management_system.exception.ResourceAlreadyExistException;
 import com.example.management_system.exception.ResourceNotFoundException;
-import com.example.management_system.services.EmployeeService;
+import com.example.management_system.service.EmployeeService;
 import com.example.management_system.util.EmployeeConverter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;

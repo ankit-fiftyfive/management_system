@@ -1,4 +1,4 @@
-package com.example.management_system.services;
+package com.example.management_system.service_impl;
 
 import com.example.management_system.dao.EmployeeDao;
 import com.example.management_system.dto.EmployeeRequestDto;
@@ -6,6 +6,7 @@ import com.example.management_system.dto.EmployeeResponseDto;
 import com.example.management_system.entities.Employee;
 import com.example.management_system.exception.ResourceAlreadyExistException;
 import com.example.management_system.exception.ResourceNotFoundException;
+import com.example.management_system.service.EmployeeService;
 import com.example.management_system.util.EmployeeConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

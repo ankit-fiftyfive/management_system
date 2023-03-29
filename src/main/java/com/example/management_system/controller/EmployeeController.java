@@ -5,7 +5,8 @@ import com.example.management_system.dto.EmployeeResponseDto;
 import com.example.management_system.entities.Employee;
 import com.example.management_system.exception.ResourceAlreadyExistException;
 import com.example.management_system.exception.ResourceNotFoundException;
-import com.example.management_system.services.EmployeeService;
+import com.example.management_system.service.EmployeeService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -45,6 +46,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/salary")
+    @RolesAllowed("user")
     public List<EmployeeResponseDto> getBySalary(@RequestParam long salary){
         return this.employeeService.getBySalary(salary);
     }
