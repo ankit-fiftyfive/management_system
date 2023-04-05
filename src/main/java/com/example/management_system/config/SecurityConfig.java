@@ -1,6 +1,5 @@
 package com.example.management_system.config;
 
-import org.keycloak.adapters.springboot.KeycloakSpringBootConfigResolver;
 import org.keycloak.adapters.springsecurity.KeycloakConfiguration;
 import org.keycloak.adapters.springsecurity.authentication.KeycloakAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,10 +30,10 @@ public class SecurityConfig {
         auth.authenticationProvider(authenticationProvider);
     }
 
-    @Bean
-    public KeycloakSpringBootConfigResolver keycloakConfigResolver(){
-        return new KeycloakSpringBootConfigResolver();
-    }
+//    @Bean
+//    public KeycloakSpringBootConfigResolver keycloakConfigResolver(){
+//        return new KeycloakSpringBootConfigResolver();
+//    }
 
     @Bean
     protected SessionAuthenticationStrategy sessionAuthenticationStrategy(){
@@ -53,10 +52,9 @@ public class SecurityConfig {
                 .disable()
                 .cors()
                 .disable()
-                .authorizeRequests()
-                .requestMatchers("/auth/**")
-                .permitAll()
-                .anyRequest().authenticated();
+                .authorizeHttpRequests()
+                .anyRequest()
+                .permitAll();
 
         return http.build();
     }
